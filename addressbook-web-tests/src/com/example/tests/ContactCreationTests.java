@@ -29,5 +29,30 @@ public class ContactCreationTests extends TestBase {
         returnToHomePage();
     }
 
+    @Test
+    public void testEmptyContactCreation() throws Exception {
+        openMainPage();
+        initContactCreation();
+
+        ContactData contactData = new ContactData();
+        contactData.firstname = "";
+        contactData.lastname = "";
+        contactData.address = "";
+        contactData.homePhoneNumber = "";
+        contactData.mobilePhoneNumber = "";
+        contactData.workPhoneNumber = "";
+        contactData.email = "";
+        contactData.email2 = "";
+        contactData.bday = "-";
+        contactData.bmonth = "-";
+        contactData.byear = "";
+        contactData.address2 = "";
+        contactData.homePhoneNumber2 = "";
+
+        fillContactForm(contactData);
+        submitContactCreation();
+        returnToHomePage();
+    }
+
 }
 
