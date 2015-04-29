@@ -6,8 +6,9 @@ import org.testng.annotations.Test;
  * Created by 801646 on 29.04.2015.
  */
 public class GroupModificationTests extends TestBase {
+
     @Test
-    public void deleteSomeGroup(){
+    public void modifySomeGroup(){
         app.getNavigationHelper().openMainPage();
         app.getNavigationHelper().goToGroupsPage();
         app.getGroupHelper().initGroupModification(1);
