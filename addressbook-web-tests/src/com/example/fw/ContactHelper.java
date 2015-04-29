@@ -36,4 +36,21 @@ public class ContactHelper extends HelperBase {
     public void initContactCreation() {
         click(By.linkText("add new"));
     }
+
+    public void deleteContact(int index) {
+        selectContactByIndex(index);
+        click(By.xpath("//input[@value = 'Delete']"));
+    }
+
+    public void initContactModification(int index) {
+        selectContactByIndex(index);
+    }
+
+    private void selectContactByIndex(int index) {
+        click(By.xpath("//tr[" + (index + 1) + "]//a/img[@title = 'Edit']"));
+    }
+
+    public void submitContactModification() {
+        click(By.name("update"));
+    }
 }
