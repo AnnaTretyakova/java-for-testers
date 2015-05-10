@@ -3,9 +3,6 @@ package com.example.fw;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 
-/**
- * Created by 801646 on 27.04.2015.
- */
 public abstract class HelperBase {
 
     protected ApplicationManager manager;

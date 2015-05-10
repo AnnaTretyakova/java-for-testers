@@ -3,13 +3,9 @@ package com.example.fw;
 import com.example.tests.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by 801646 on 27.04.2015.
- */
 public class GroupHelper extends HelperBase {
 
     public GroupHelper(ApplicationManager manager) {

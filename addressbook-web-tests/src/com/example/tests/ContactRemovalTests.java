@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import static org.testng.Assert.assertEquals;
 
@@ -13,6 +14,8 @@ import static org.testng.Assert.assertEquals;
  */
 public class ContactRemovalTests extends TestBase{
 
+    //@Test (dataProvider = "randomIndex")
+    //public void deleteSomeContact(int index) throws Exception {
     @Test
     public void deleteSomeContact() throws Exception {
         app.getNavigationHelper().openMainPage();
@@ -21,14 +24,16 @@ public class ContactRemovalTests extends TestBase{
         List<ContactData> oldList = app.getContactHelper().getContacts();
 
         //action
-        app.getContactHelper().deleteContact(0);
+        Random rnd = new Random();
+        int index = rnd.nextInt(oldList.size()-1);
+        app.getContactHelper().deleteContact(index);
         app.getNavigationHelper().returnToHomePage();
 
         //save new ContactsList
         List<ContactData> newList = app.getContactHelper().getContacts();
 
         //compare old and new ContactLists
-        oldList.remove(0);
+        oldList.remove(index);
         Collections.sort(oldList);
         Collections.sort(newList);
         assertEquals(oldList, newList);

@@ -1,7 +1,5 @@
 package com.example.tests;
 
-import java.util.Objects;
-
 public class GroupData implements Comparable<GroupData> {
     public String name;
     public String header;

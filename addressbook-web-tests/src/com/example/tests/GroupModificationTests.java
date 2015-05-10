@@ -1,19 +1,15 @@
 package com.example.tests;
 
 import org.testng.annotations.Test;
-
 import java.util.Collections;
 import java.util.List;
-
+import java.util.Random;
 import static org.testng.Assert.assertEquals;
 
-/**
- * Created by 801646 on 29.04.2015.
- */
 public class GroupModificationTests extends TestBase {
 
-    @Test
-    public void modifySomeGroup(){
+    @Test(dataProvider = "randomValidGroupGenerator")
+    public void modifySomeGroup(GroupData group){
         app.getNavigationHelper().openMainPage();
         app.getNavigationHelper().goToGroupsPage();
 
@@ -21,9 +17,9 @@ public class GroupModificationTests extends TestBase {
         List<GroupData> oldList = app.getGroupHelper().getGroups();
 
         //actions
-        app.getGroupHelper().initGroupModification(0);
-        GroupData group = new GroupData();
-        group.name = "new name";
+        Random rnd = new Random();
+        int index = rnd.nextInt(oldList.size()-1);
+        app.getGroupHelper().initGroupModification(index);
         app.getGroupHelper().fillGroupForm(group);
         app.getGroupHelper().submitGroupModification();
         app.getNavigationHelper().returnToGroupPage();
@@ -32,7 +28,11 @@ public class GroupModificationTests extends TestBase {
         List<GroupData> newList = app.getGroupHelper().getGroups();
 
         //compare states
-        oldList.remove(0);
+        //sinse type method in fillGroupForm does't change field if value is null I should save group.name from OldList before remove, sort, assert
+        if (group.name == null){
+            group.name = oldList.get(index).name;
+        }
+        oldList.remove(index);
         oldList.add(group);
         Collections.sort(oldList);
         assertEquals(newList, oldList);

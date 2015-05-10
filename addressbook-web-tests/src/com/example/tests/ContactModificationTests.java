@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import static org.testng.Assert.assertEquals;
 
@@ -12,18 +13,17 @@ import static org.testng.Assert.assertEquals;
  */
 public class ContactModificationTests extends TestBase {
 
-    @Test public void modifySomeContacts(){
-
+    @Test (dataProvider = "randomValidContactGenerator")
+    public void modifySomeContacts(ContactData contact){
             app.getNavigationHelper().openMainPage();
 
             //save old ContactsList
             List<ContactData> oldList = app.getContactHelper().getContacts();
 
             //action
-            app.getContactHelper().initContactModification(0);
-            ContactData contact = new ContactData();
-            contact.firstname = "new name";
-            contact.byear = "2000";
+            Random rnd = new Random();
+            int index = rnd.nextInt(oldList.size()-1);
+            app.getContactHelper().initContactModification(index);
             app.getContactHelper().fillContactForm(contact);
             app.getContactHelper().submitContactModification();
             app.getNavigationHelper().returnToHomePage();
@@ -32,12 +32,11 @@ public class ContactModificationTests extends TestBase {
             List<ContactData> newList = app.getContactHelper().getContacts();
 
             //compare old and new ContactLists
-            //I have changed only firstname and byear, but I compare by firstname, lastname, email, homeFhoneNumber
-            //that's why I should save them to contact before sort and assert
-            contact.lastname = oldList.get(0).lastname;
-            contact.email = oldList.get(0).email;
-            contact.homePhoneNumber = oldList.get(0).homePhoneNumber;
-            oldList.remove(0);
+            //sinse type method in fillGroupForm does't change field if value is null
+            // I should save contact.firstname and contact.lastname from OldList before remove, sort, assert
+            if (contact.firstname == null){contact.firstname = oldList.get(index).firstname;}
+            if (contact.lastname == null){contact.lastname = oldList.get(index).lastname;}
+            oldList.remove(index);
             oldList.add(contact);
             Collections.sort(oldList);
             Collections.sort(newList);
