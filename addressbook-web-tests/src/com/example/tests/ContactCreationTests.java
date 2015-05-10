@@ -2,11 +2,20 @@ package com.example.tests;
 
 import org.testng.annotations.*;
 
+import java.util.Collections;
+import java.util.List;
+import static org.testng.Assert.assertEquals;
+
 public class ContactCreationTests extends TestBase {
 
     @Test
     public void testNonEmptyContactCreation() throws Exception {
         app.getNavigationHelper().openMainPage();
+
+        //save old ContactsList
+        List<ContactData> oldList = app.getContactHelper().getContacts();
+
+        //action
         app.getContactHelper().initContactCreation();
 
         ContactData contactData = new ContactData();
@@ -27,11 +36,25 @@ public class ContactCreationTests extends TestBase {
         app.getContactHelper().fillContactForm(contactData);
         app.getContactHelper().submitContactCreation();
         app.getNavigationHelper().returnToHomePage();
+
+        //save new ContactsList
+        List<ContactData> newList = app.getContactHelper().getContacts();
+
+        //compare old and new ContactLists
+        oldList.add(contactData);
+        Collections.sort(oldList);
+        Collections.sort(newList);
+        assertEquals(oldList, newList);
     }
 
     @Test
     public void testEmptyContactCreation() throws Exception {
         app.getNavigationHelper().openMainPage();
+
+        //save old ContactsList
+        List<ContactData> oldList = app.getContactHelper().getContacts();
+
+        //action
         app.getContactHelper().initContactCreation();
 
         ContactData contactData = new ContactData();
@@ -52,6 +75,15 @@ public class ContactCreationTests extends TestBase {
         app.getContactHelper().fillContactForm(contactData);
         app.getContactHelper().submitContactCreation();
         app.getNavigationHelper().returnToHomePage();
+
+        //save new ContactsList
+        List<ContactData> newList = app.getContactHelper().getContacts();
+
+        //compare old and new ContactLists
+        oldList.add(contactData);
+        Collections.sort(oldList);
+        Collections.sort(newList);
+        assertEquals(oldList, newList);
     }
 }
 
