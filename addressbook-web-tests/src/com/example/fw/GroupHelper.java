@@ -17,9 +17,9 @@ public class GroupHelper extends HelperBase {
     }
 
     public void fillGroupForm(GroupData groupData) {
-        type(By.name("group_name"), groupData.name);
-        type(By.name("group_header"), groupData.header);
-        type(By.name("group_footer"), groupData.footer);
+        type(By.name("group_name"), groupData.getName());
+        type(By.name("group_header"), groupData.getHeader());
+        type(By.name("group_footer"), groupData.getFooter());
     }
 
     public void initGroupCreation() {
@@ -50,8 +50,8 @@ public class GroupHelper extends HelperBase {
         for (WebElement checkmox: checkboxes){
             GroupData group = new GroupData();
             String title = checkmox.getAttribute("title");
-            group.name = title.substring("Select (".length(), title.length() - ")".length());
-            groups.add(group);
+            String name = title.substring("Select (".length(), title.length() - ")".length());
+            groups.add(group.withName(name));
         }
         return groups;
     }

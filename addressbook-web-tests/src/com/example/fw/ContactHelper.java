@@ -21,19 +21,19 @@ public class ContactHelper extends HelperBase {
     }
 
     public void fillContactForm(ContactData contactData) {
-        type(By.name("firstname"), contactData.firstname);
-        type(By.name("lastname"), contactData.lastname);
-        type(By.name("address"), contactData.address);
-        type(By.name("home"), contactData.homePhoneNumber);
-        type(By.name("mobile"), contactData.mobilePhoneNumber);
-        type(By.name("work"), contactData.workPhoneNumber);
-        type(By.name("email"), contactData.email);
-        type(By.name("email2"), contactData.email2);
-        selectByText(By.name("bday"), contactData.bday);
-        selectByText(By.name("bmonth"), contactData.bmonth);
-        type(By.name("byear"), contactData.byear);
-        type(By.name("address2"), contactData.address2);
-        type(By.name("phone2"), contactData.homePhoneNumber2);
+        type(By.name("firstname"), contactData.getFirstname());
+        type(By.name("lastname"), contactData.getLastname());
+        type(By.name("address"), contactData.getAddress());
+        type(By.name("home"), contactData.getHomePhoneNumber());
+        type(By.name("mobile"), contactData.getMobilePhoneNumber());
+        type(By.name("work"), contactData.getWorkPhoneNumber());
+        type(By.name("email"), contactData.getEmail());
+        type(By.name("email2"), contactData.getEmail2());
+        selectByText(By.name("bday"), contactData.getBday());
+        selectByText(By.name("bmonth"), contactData.getBmonth());
+        type(By.name("byear"), contactData.getByear());
+        type(By.name("address2"), contactData.getAddress2());
+        type(By.name("phone2"), contactData.getHomePhoneNumber2());
     }
 
     public void initContactCreation() {
@@ -61,11 +61,11 @@ public class ContactHelper extends HelperBase {
         List<ContactData> contacts = new ArrayList<ContactData>();
         List<WebElement> rows = driver.findElements(By.name ("entry"));
         for (WebElement row : rows){
-            ContactData contact = new ContactData();
-            contact.firstname = row.findElement(By.xpath("td[3]")).getText();
-            contact.lastname = row.findElement(By.xpath("td[2]")).getText();
-            contact.email = row.findElement(By.xpath("td[4]")).getText();
-            contact.homePhoneNumber = row.findElement(By.xpath("td[5]")).getText();
+            ContactData contact = new ContactData()
+                    .withFirstname(row.findElement(By.xpath("td[3]")).getText())
+                    .withLastname(row.findElement(By.xpath("td[2]")).getText())
+                    .withEmail(row.findElement(By.xpath("td[4]")).getText())
+                    .withHomePhoneNumber(row.findElement(By.xpath("td[5]")).getText());
             contacts.add(contact);
         }
         return contacts;

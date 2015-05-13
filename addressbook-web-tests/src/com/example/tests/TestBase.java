@@ -27,10 +27,13 @@ public class TestBase {
     public Iterator<Object[]> randomValidGroupGenerator(){
         List<Object[]> list = new ArrayList<Object[]>();
         for (int i=0; i<3; i++) {
-            GroupData group = new GroupData();
-            group.name = generateRandomString();
-            group.footer = generateRandomString();
-            group.header = generateRandomString();
+            GroupData group = new GroupData()
+                    .withName(generateRandomString())
+                    .withHeader(generateRandomString())
+                    .withFooter(generateRandomString());
+            //group.name = generateRandomString();
+            //group.footer = generateRandomString();
+            //group.header = generateRandomString();
             list.add(new Object[]{group});
         }
         return list.iterator();
@@ -52,21 +55,21 @@ public class TestBase {
         List<Object[]> list = new ArrayList<Object[]>();
         for (int i=0; i<3; i++) {
             Random rnd = new Random();
-            ContactData contactData = new ContactData();
-            contactData.firstname = generateRandomString();
-            contactData.lastname = generateRandomString();
-            contactData.address = generateRandomString();
-            contactData.homePhoneNumber = String.valueOf(rnd.nextInt()); //it seems that when phone numbers are null or "" then program generate random number for this field
-            contactData.mobilePhoneNumber = String.valueOf(rnd.nextInt());
-            contactData.workPhoneNumber = String.valueOf(rnd.nextInt());
-            contactData.email = "test" + rnd.nextInt(); //it seems that when email is null or "" then program generate random not null value for this field
-            contactData.email2 = "test" + rnd.nextInt();
-            contactData.bday = generateRandomBday();
-            contactData.bmonth = generateRandomBmonth();
-            contactData.byear = generateRandomByear();
-            contactData.address2 = generateRandomString();
-            contactData.homePhoneNumber2 = String.valueOf(rnd.nextInt());
-            list.add(new Object[]{contactData});
+            ContactData contactData = new ContactData()
+                    .withFirstname(generateRandomString())
+                    .withLastname(generateRandomString())
+                    .withAddress(generateRandomString())
+                    .withHomePhoneNumber(String.valueOf(rnd.nextInt()))//it seems that when phone numbers are null or "" then program generate random number for this field
+                    .withMobilePhoneNumber(String.valueOf(rnd.nextInt()))
+                    .withWorkPhoneNumber(String.valueOf(rnd.nextInt()))
+                    .withEmail("test" + rnd.nextInt()) //it seems that when email is null or "" then program generate random not null value for this field
+                    .withEmail2("test" + rnd.nextInt())
+                    .withBday(generateRandomBday())
+                    .withBmonth(generateRandomBmonth())
+                    .withByear(generateRandomByear())
+                    .withAddress2(generateRandomString())
+                    .withHomePhoneNumber2(String.valueOf(rnd.nextInt()));
+                    list.add(new Object[]{contactData});
         }
         return list.iterator();
     }
