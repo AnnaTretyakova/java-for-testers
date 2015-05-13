@@ -27,8 +27,8 @@ public class ContactCreationTests extends TestBase {
 
         //compare old and new ContactLists
         //sinse contact.firstname and contact.lastname fields can be generated as null, they will be got in getContacts() as ""
-        if (contact.firstname == null){contact.firstname = "";}
-        if (contact.lastname == null){contact.lastname = "";}
+        if (contact.getFirstname() == null){contact.withFirstname("");}
+        if (contact.getLastname()== null){contact.withLastname("");}
         oldList.add(contact);
         Collections.sort(oldList);
         Collections.sort(newList);

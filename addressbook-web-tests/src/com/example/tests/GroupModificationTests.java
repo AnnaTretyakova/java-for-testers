@@ -29,8 +29,8 @@ public class GroupModificationTests extends TestBase {
 
         //compare states
         //sinse type method in fillGroupForm does't change field if value is null I should save group.name from OldList before remove, sort, assert
-        if (group.name == null){
-            group.name = oldList.get(index).name;
+        if (group.getName() == null){
+            group.withName(oldList.get(index).getName());
         }
         oldList.remove(index);
         oldList.add(group);

@@ -34,8 +34,8 @@ public class ContactModificationTests extends TestBase {
             //compare old and new ContactLists
             //sinse type method in fillGroupForm does't change field if value is null
             // I should save contact.firstname and contact.lastname from OldList before remove, sort, assert
-            if (contact.firstname == null){contact.firstname = oldList.get(index).firstname;}
-            if (contact.lastname == null){contact.lastname = oldList.get(index).lastname;}
+            if (contact.getFirstname() == null){contact.withFirstname(oldList.get(index).getFirstname());}
+            if (contact.getLastname() == null){contact.withLastname(oldList.get(index).getLastname());}
             oldList.remove(index);
             oldList.add(contact);
             Collections.sort(oldList);
