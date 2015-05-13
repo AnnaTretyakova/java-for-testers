@@ -19,9 +19,10 @@ public class GroupModificationTests extends TestBase {
         //actions
         Random rnd = new Random();
         int index = rnd.nextInt(oldList.size()-1);
-        app.getGroupHelper().initGroupModification(index);
-        app.getGroupHelper().fillGroupForm(group);
-        app.getGroupHelper().submitGroupModification();
+        app.getGroupHelper().
+                initGroupModification(index)
+                .fillGroupForm(group)
+                .submitGroupModification();
         app.getNavigationHelper().returnToGroupPage();
 
         //save new state

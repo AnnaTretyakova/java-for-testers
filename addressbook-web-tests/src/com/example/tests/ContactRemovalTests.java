@@ -1,6 +1,5 @@
 package com.example.tests;
 
-import com.example.fw.ContactHelper;
 import org.testng.annotations.Test;
 
 import java.util.Collections;
@@ -9,9 +8,6 @@ import java.util.Random;
 
 import static org.testng.Assert.assertEquals;
 
-/**
- * Created by 801646 on 29.04.2015.
- */
 public class ContactRemovalTests extends TestBase{
 
     //@Test (dataProvider = "randomIndex")

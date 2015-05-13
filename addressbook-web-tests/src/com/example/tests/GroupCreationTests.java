@@ -15,9 +15,10 @@ public class GroupCreationTests extends TestBase {
         List<GroupData> oldList = app.getGroupHelper().getGroups();
 
         //actions
-        app.getGroupHelper().initGroupCreation();
-        app.getGroupHelper().fillGroupForm(group);
-        app.getGroupHelper().submitGroupCreation();
+        app.getGroupHelper()
+                .initGroupCreation()
+                .fillGroupForm(group)
+                .submitGroupCreation();
         app.getNavigationHelper().returnToGroupPage();
 
         //save new state

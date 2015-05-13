@@ -7,20 +7,18 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by 801646 on 27.04.2015.
- */
 public class ContactHelper extends HelperBase {
 
     public ContactHelper(ApplicationManager manager) {
         super(manager);
     }
 
-    public void submitContactCreation() {
+    public ContactHelper submitContactCreation() {
         click(By.name("submit"));
+        return this;
     }
 
-    public void fillContactForm(ContactData contactData) {
+    public ContactHelper fillContactForm(ContactData contactData) {
         type(By.name("firstname"), contactData.getFirstname());
         type(By.name("lastname"), contactData.getLastname());
         type(By.name("address"), contactData.getAddress());
@@ -34,27 +32,33 @@ public class ContactHelper extends HelperBase {
         type(By.name("byear"), contactData.getByear());
         type(By.name("address2"), contactData.getAddress2());
         type(By.name("phone2"), contactData.getHomePhoneNumber2());
+        return this;
     }
 
-    public void initContactCreation() {
+    public ContactHelper initContactCreation() {
         click(By.linkText("add new"));
+        return this;
     }
 
-    public void deleteContact(int index) {
+    public ContactHelper deleteContact(int index) {
         selectContactByIndex(index);
         click(By.xpath("//input[@value = 'Delete']"));
+        return this;
     }
 
-    public void initContactModification(int index) {
+    public ContactHelper initContactModification(int index) {
         selectContactByIndex(index);
+        return this;
     }
 
-    private void selectContactByIndex(int index) {
+    private ContactHelper selectContactByIndex(int index) {
         click(By.xpath("//tr[" + (index + 2) + "]//a/img[@title = 'Edit']"));
+        return this;
     }
 
-    public void submitContactModification() {
+    public ContactHelper submitContactModification() {
         click(By.name("update"));
+        return this;
     }
 
     public List<ContactData> getContacts() {
