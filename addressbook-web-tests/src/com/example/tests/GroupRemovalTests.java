@@ -1,6 +1,5 @@
 package com.example.tests;
 
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.*;
@@ -13,8 +12,8 @@ public class GroupRemovalTests extends TestBase {
     //public void deleteSomeGroup(int index){
     @Test
     public void deleteSomeGroup(){
-        app.getNavigationHelper().openMainPage();
-        app.getNavigationHelper().goToGroupsPage();
+        app.navigateTo().mainPage();
+        app.navigateTo().groupsPage();
 
         //save old state
         List<GroupData> oldList = app.getGroupHelper().getGroups();
@@ -23,7 +22,7 @@ public class GroupRemovalTests extends TestBase {
         Random rnd = new Random();
         int index = rnd.nextInt(oldList.size() - 1);
         app.getGroupHelper().delete(index);
-        app.getNavigationHelper().returnToGroupPage();
+        app.navigateTo().groupPage();
 
         //save new state
         List<GroupData> newList = app.getGroupHelper().getGroups();

@@ -14,7 +14,7 @@ public class ContactRemovalTests extends TestBase{
     //public void deleteSomeContact(int index) throws Exception {
     @Test
     public void deleteSomeContact() throws Exception {
-        app.getNavigationHelper().openMainPage();
+        app.navigateTo().mainPage();
 
         //save old ContactsList
         List<ContactData> oldList = app.getContactHelper().getContacts();
@@ -23,7 +23,7 @@ public class ContactRemovalTests extends TestBase{
         Random rnd = new Random();
         int index = rnd.nextInt(oldList.size()-1);
         app.getContactHelper().deleteContact(index);
-        app.getNavigationHelper().returnToHomePage();
+        app.navigateTo().homePage();
 
         //save new ContactsList
         List<ContactData> newList = app.getContactHelper().getContacts();

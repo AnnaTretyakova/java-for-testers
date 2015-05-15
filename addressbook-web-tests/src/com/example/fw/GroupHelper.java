@@ -12,36 +12,43 @@ public class GroupHelper extends HelperBase {
         super(manager);
     }
 
-    public void submitGroupCreation() {
+    public GroupHelper submitGroupCreation() {
         click(By.name("submit"));
+        return this;
     }
 
-    public void fillGroupForm(GroupData groupData) {
+    public GroupHelper fillGroupForm(GroupData groupData) {
         type(By.name("group_name"), groupData.getName());
         type(By.name("group_header"), groupData.getHeader());
         type(By.name("group_footer"), groupData.getFooter());
+        return this;
     }
 
-    public void initGroupCreation() {
+    public GroupHelper initGroupCreation() {
         click(By.name("new"));
+        return this;
     }
 
-    public void delete(int index) {
+    public GroupHelper delete(int index) {
         selectGroupByIndex(index);
         click(By.name("delete"));
+        return this;
     }
 
-    public void submitGroupModification() {
+    public GroupHelper submitGroupModification() {
         click(By.name("update"));
+        return this;
     }
 
-    public void initGroupModification(int index) {
+    public GroupHelper initGroupModification(int index) {
         selectGroupByIndex(index);
         click(By.name("edit"));
+        return this;
     }
 
-    public void selectGroupByIndex(int index) {
+    public GroupHelper selectGroupByIndex(int index) {
         click(By.xpath("//input[@name='selected[]'][" + (index+1) + "]"));
+        return this;
     }
 
     public List<GroupData> getGroups() {

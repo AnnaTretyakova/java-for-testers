@@ -1,6 +1,7 @@
 package com.example.tests;
 
 import org.testng.annotations.Test;
+import static  com.example.fw.ContactHelper.MODIFICATION;
 
 import java.util.Collections;
 import java.util.List;
@@ -15,7 +16,7 @@ public class ContactModificationTests extends TestBase {
 
     @Test (dataProvider = "randomValidContactGenerator")
     public void modifySomeContacts(ContactData contact){
-            app.getNavigationHelper().openMainPage();
+            app.navigateTo().mainPage();
 
             //save old ContactsList
             List<ContactData> oldList = app.getContactHelper().getContacts();
@@ -25,9 +26,9 @@ public class ContactModificationTests extends TestBase {
             int index = rnd.nextInt(oldList.size()-1);
             app.getContactHelper()
                     .initContactModification(index)
-                    .fillContactForm(contact)
+                    .fillContactForm(contact, MODIFICATION)
                     .submitContactModification();
-            app.getNavigationHelper().returnToHomePage();
+            app.navigateTo().homePage();
 
             //save new ContactsList
             List<ContactData> newList = app.getContactHelper().getContacts();
