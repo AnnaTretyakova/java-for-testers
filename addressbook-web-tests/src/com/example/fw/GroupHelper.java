@@ -12,6 +12,46 @@ public class GroupHelper extends HelperBase {
         super(manager);
     }
 
+    public List<GroupData> getGroups() {
+        List<GroupData> groups = new ArrayList<GroupData>();
+        manager.navigateTo().groupsPage();
+        List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
+        for (WebElement checkmox: checkboxes){
+            GroupData group = new GroupData();
+            String title = checkmox.getAttribute("title");
+            String name = title.substring("Select (".length(), title.length() - ")".length());
+            groups.add(group.withName(name));
+        }
+        return groups;
+    }
+
+    public GroupHelper createGroup(GroupData group) {
+        manager.navigateTo().groupsPage();
+        initGroupCreation();
+        fillGroupForm(group);
+        submitGroupCreation();
+        manager.navigateTo().groupPage();
+        return this;
+    }
+
+    public GroupHelper modifyGroup(int index, GroupData group) {
+        manager.navigateTo().groupsPage();
+        initGroupModification(index);
+        fillGroupForm(group);
+        submitGroupModification();
+        manager.navigateTo().groupPage();
+        return this;
+    }
+
+    public GroupHelper delete(int index) {
+        manager.navigateTo().groupsPage();
+        selectGroupByIndex(index);
+        click(By.name("delete"));
+        manager.navigateTo().groupPage();
+        return this;
+    }
+    //------------------------------------------------------------------------------------------------------------------
+
     public GroupHelper submitGroupCreation() {
         click(By.name("submit"));
         return this;
@@ -25,13 +65,8 @@ public class GroupHelper extends HelperBase {
     }
 
     public GroupHelper initGroupCreation() {
+        manager.navigateTo().groupsPage();
         click(By.name("new"));
-        return this;
-    }
-
-    public GroupHelper delete(int index) {
-        selectGroupByIndex(index);
-        click(By.name("delete"));
         return this;
     }
 
@@ -47,19 +82,7 @@ public class GroupHelper extends HelperBase {
     }
 
     public GroupHelper selectGroupByIndex(int index) {
-        click(By.xpath("//input[@name='selected[]'][" + (index+1) + "]"));
+        click(By.xpath("//input[@name='selected[]'][" + (index + 1) + "]"));
         return this;
-    }
-
-    public List<GroupData> getGroups() {
-        List<GroupData> groups = new ArrayList<GroupData>();
-        List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
-        for (WebElement checkmox: checkboxes){
-            GroupData group = new GroupData();
-            String title = checkmox.getAttribute("title");
-            String name = title.substring("Select (".length(), title.length() - ")".length());
-            groups.add(group.withName(name));
-        }
-        return groups;
     }
 }

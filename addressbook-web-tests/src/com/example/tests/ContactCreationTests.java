@@ -3,7 +3,6 @@ package com.example.tests;
 import org.testng.annotations.Test;
 import java.util.Collections;
 import java.util.List;
-import static  com.example.fw.ContactHelper.CREATION;
 
 import static org.testng.Assert.assertEquals;
 
@@ -11,18 +10,11 @@ public class ContactCreationTests extends TestBase {
 
     @Test(dataProvider = "randomValidContactGenerator")
     public void testContactCreationWithValidData(ContactData contact) throws Exception {
-        app.navigateTo().mainPage();
-
         //save old ContactsList
         List<ContactData> oldList = app.getContactHelper().getContacts();
 
         //action
-        app.getContactHelper().initContactCreation();
-
-        app.getContactHelper()
-                .fillContactForm(contact, CREATION)
-                .submitContactCreation();
-        app.navigateTo().homePage();
+        app.getContactHelper().createContact(contact);
 
         //save new ContactsList
         List<ContactData> newList = app.getContactHelper().getContacts();

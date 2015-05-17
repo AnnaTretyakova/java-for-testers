@@ -2,9 +2,6 @@ package com.example.fw;
 
 import org.openqa.selenium.By;
 
-/**
- * Created by 801646 on 27.04.2015.
- */
 public class NavigationHelper extends HelperBase{
 
     public NavigationHelper(ApplicationManager manager) {
@@ -12,18 +9,36 @@ public class NavigationHelper extends HelperBase{
     }
 
     public void mainPage() {
-        driver.get(manager.baseUrl + "/addressbookv4.1.4/");
-    }
-
-    public void groupsPage() {
-        click(By.linkText("groups"));
-    }
-
-    public void groupPage() {
-        click(By.linkText("group page"));
+        if (! onMainPage()){
+            click(By.linkText("home"));
+        }
     }
 
     public void homePage() {
-        click(By.linkText("home page"));
+        if (! onMainPage()){
+            click(By.linkText("home page"));
+        }
+    }
+
+    public void groupsPage() {
+        if (! onGroupsPage()) {
+            click(By.linkText("groups"));
+        }
+    }
+
+    public void groupPage() {
+        if (! onGroupsPage()){
+            click(By.linkText("group page"));
+        }
+    }
+
+    private boolean onGroupsPage() {
+        if(driver.getCurrentUrl().contains("/group.php") && driver.findElements(By.name("new")).size()>0){
+            return true;
+        }else{return false;}
+    }
+
+    private boolean onMainPage() {
+        return (driver.findElements(By.id("maintable")).size()>0);
     }
 }

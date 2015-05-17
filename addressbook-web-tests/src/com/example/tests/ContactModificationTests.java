@@ -16,19 +16,13 @@ public class ContactModificationTests extends TestBase {
 
     @Test (dataProvider = "randomValidContactGenerator")
     public void modifySomeContacts(ContactData contact){
-            app.navigateTo().mainPage();
-
             //save old ContactsList
             List<ContactData> oldList = app.getContactHelper().getContacts();
 
             //action
             Random rnd = new Random();
             int index = rnd.nextInt(oldList.size()-1);
-            app.getContactHelper()
-                    .initContactModification(index)
-                    .fillContactForm(contact, MODIFICATION)
-                    .submitContactModification();
-            app.navigateTo().homePage();
+            app.getContactHelper().modifyContact(index, contact);
 
             //save new ContactsList
             List<ContactData> newList = app.getContactHelper().getContacts();

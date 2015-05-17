@@ -23,7 +23,6 @@ public class ContactRemovalTests extends TestBase{
         Random rnd = new Random();
         int index = rnd.nextInt(oldList.size()-1);
         app.getContactHelper().deleteContact(index);
-        app.navigateTo().homePage();
 
         //save new ContactsList
         List<ContactData> newList = app.getContactHelper().getContacts();

@@ -16,10 +16,47 @@ public class ContactHelper extends HelperBase {
     public static boolean CREATION = true;
     public static boolean MODIFICATION = false;
 
-    public ContactHelper submitContactCreation() {
-        click(By.name("submit"));
+    public List<ContactData> getContacts() {
+        manager.navigateTo().mainPage();
+        List<ContactData> contacts = new ArrayList<ContactData>();
+        List<WebElement> rows = driver.findElements(By.name ("entry"));
+        for (WebElement row : rows){
+            ContactData contact = new ContactData()
+                    .withFirstname(row.findElement(By.xpath("td[3]")).getText())
+                    .withLastname(row.findElement(By.xpath("td[2]")).getText())
+                    .withEmail(row.findElement(By.xpath("td[4]")).getText())
+                    .withHomePhoneNumber(row.findElement(By.xpath("td[5]")).getText());
+            contacts.add(contact);
+        }
+        return contacts;
+    }
+
+    public ContactHelper createContact(ContactData contact) {
+        manager.navigateTo().mainPage();
+        initContactCreation();
+        fillContactForm(contact, CREATION);
+        submitContactCreation();
+        manager.navigateTo().homePage();
         return this;
     }
+
+    public void modifyContact(int index, ContactData contact) {
+        manager.navigateTo().mainPage();
+        initContactModification(index);
+        fillContactForm(contact, MODIFICATION);
+        submitContactModification();
+        manager.navigateTo().homePage();
+    }
+
+    public ContactHelper deleteContact(int index) {
+        manager.navigateTo().mainPage();
+        selectContactByIndex(index);
+        click(By.xpath("//input[@value = 'Delete']"));
+        manager.navigateTo().homePage();
+        return this;
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
 
     public ContactHelper fillContactForm(ContactData contactData, boolean formType) {
         type(By.name("firstname"), contactData.getFirstname());
@@ -51,12 +88,6 @@ public class ContactHelper extends HelperBase {
         return this;
     }
 
-    public ContactHelper deleteContact(int index) {
-        selectContactByIndex(index);
-        click(By.xpath("//input[@value = 'Delete']"));
-        return this;
-    }
-
     public ContactHelper initContactModification(int index) {
         selectContactByIndex(index);
         return this;
@@ -72,17 +103,8 @@ public class ContactHelper extends HelperBase {
         return this;
     }
 
-    public List<ContactData> getContacts() {
-        List<ContactData> contacts = new ArrayList<ContactData>();
-        List<WebElement> rows = driver.findElements(By.name ("entry"));
-        for (WebElement row : rows){
-            ContactData contact = new ContactData()
-                    .withFirstname(row.findElement(By.xpath("td[3]")).getText())
-                    .withLastname(row.findElement(By.xpath("td[2]")).getText())
-                    .withEmail(row.findElement(By.xpath("td[4]")).getText())
-                    .withHomePhoneNumber(row.findElement(By.xpath("td[5]")).getText());
-            contacts.add(contact);
-        }
-        return contacts;
+    public ContactHelper submitContactCreation() {
+        click(By.name("submit"));
+        return this;
     }
 }
