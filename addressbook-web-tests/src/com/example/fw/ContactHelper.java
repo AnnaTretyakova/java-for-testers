@@ -1,6 +1,7 @@
 package com.example.fw;
 
 import com.example.tests.ContactData;
+import com.example.utils.SortedListOf;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -16,9 +17,9 @@ public class ContactHelper extends HelperBase {
     public static boolean CREATION = true;
     public static boolean MODIFICATION = false;
 
-    private List<ContactData> cachedContacts;
+    private SortedListOf<ContactData> cachedContacts;
 
-    public List<ContactData> getContacts() {
+    public SortedListOf<ContactData> getContacts() {
         if (cachedContacts == null) {
             rebuildCash();
         }
@@ -27,7 +28,7 @@ public class ContactHelper extends HelperBase {
 
     private void rebuildCash() {
         manager.navigateTo().mainPage();
-        cachedContacts = new ArrayList<ContactData>();
+        cachedContacts = new SortedListOf<ContactData>();
         List<WebElement> rows = driver.findElements(By.name ("entry"));
         for (WebElement row : rows){
             ContactData contact = new ContactData()

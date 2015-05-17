@@ -1,12 +1,12 @@
 package com.example.tests;
 
+import com.example.utils.SortedListOf;
 import org.testng.annotations.Test;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
-import static org.testng.Assert.assertEquals;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
 
 public class ContactRemovalTests extends TestBase{
 
@@ -17,7 +17,7 @@ public class ContactRemovalTests extends TestBase{
         app.navigateTo().mainPage();
 
         //save old ContactsList
-        List<ContactData> oldList = app.getContactHelper().getContacts();
+        SortedListOf<ContactData> oldList = app.getContactHelper().getContacts();
 
         //action
         Random rnd = new Random();
@@ -25,12 +25,9 @@ public class ContactRemovalTests extends TestBase{
         app.getContactHelper().deleteContact(index);
 
         //save new ContactsList
-        List<ContactData> newList = app.getContactHelper().getContacts();
+        SortedListOf<ContactData> newList = app.getContactHelper().getContacts();
 
         //compare old and new ContactLists
-        oldList.remove(index);
-        Collections.sort(oldList);
-        Collections.sort(newList);
-        assertEquals(oldList, newList);
+        assertThat(newList, equalTo(oldList.without(index)));
     }
 }

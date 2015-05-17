@@ -1,9 +1,10 @@
 package com.example.fw;
 
 import com.example.tests.GroupData;
+import com.example.utils.SortedListOf;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class GroupHelper extends HelperBase {
@@ -12,9 +13,9 @@ public class GroupHelper extends HelperBase {
         super(manager);
     }
 
-    private List<GroupData> cachedGroups;
+    private SortedListOf<GroupData> cachedGroups;
 
-    public List<GroupData> getGroups() {
+    public SortedListOf<GroupData> getGroups() {
         if (cachedGroups == null) {
             rebuildCash();
         }
@@ -22,7 +23,7 @@ public class GroupHelper extends HelperBase {
     }
 
     private void rebuildCash() {
-        cachedGroups = new ArrayList<GroupData>();
+        cachedGroups = new SortedListOf<GroupData>();
         manager.navigateTo().groupsPage();
         List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
         for (WebElement checkmox: checkboxes){
