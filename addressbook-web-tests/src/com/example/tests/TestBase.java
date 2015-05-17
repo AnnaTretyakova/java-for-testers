@@ -26,7 +26,7 @@ public class TestBase {
     @DataProvider
     public Iterator<Object[]> randomValidGroupGenerator(){
         List<Object[]> list = new ArrayList<Object[]>();
-        for (int i=0; i<1; i++) {
+        for (int i=0; i<2; i++) {
             GroupData group = new GroupData()
                     .withName(generateRandomString())
                     .withHeader(generateRandomString())
@@ -53,7 +53,7 @@ public class TestBase {
     @DataProvider
     public Iterator<Object[]> randomValidContactGenerator() {
         List<Object[]> list = new ArrayList<Object[]>();
-        for (int i=0; i<1; i++) {
+        for (int i=0; i<2; i++) {
             Random rnd = new Random();
             ContactData contactData = new ContactData()
                     .withFirstname(generateRandomString())

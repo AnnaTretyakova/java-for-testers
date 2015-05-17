@@ -12,17 +12,25 @@ public class GroupHelper extends HelperBase {
         super(manager);
     }
 
+    private List<GroupData> cachedGroups;
+
     public List<GroupData> getGroups() {
-        List<GroupData> groups = new ArrayList<GroupData>();
+        if (cachedGroups == null) {
+            rebuildCash();
+        }
+        return cachedGroups;
+    }
+
+    private void rebuildCash() {
+        cachedGroups = new ArrayList<GroupData>();
         manager.navigateTo().groupsPage();
         List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
         for (WebElement checkmox: checkboxes){
             GroupData group = new GroupData();
             String title = checkmox.getAttribute("title");
             String name = title.substring("Select (".length(), title.length() - ")".length());
-            groups.add(group.withName(name));
+            cachedGroups.add(group.withName(name));
         }
-        return groups;
     }
 
     public GroupHelper createGroup(GroupData group) {
@@ -31,6 +39,7 @@ public class GroupHelper extends HelperBase {
         fillGroupForm(group);
         submitGroupCreation();
         manager.navigateTo().groupPage();
+        rebuildCash();
         return this;
     }
 
@@ -40,6 +49,7 @@ public class GroupHelper extends HelperBase {
         fillGroupForm(group);
         submitGroupModification();
         manager.navigateTo().groupPage();
+        rebuildCash();
         return this;
     }
 
@@ -48,12 +58,14 @@ public class GroupHelper extends HelperBase {
         selectGroupByIndex(index);
         click(By.name("delete"));
         manager.navigateTo().groupPage();
+        rebuildCash();
         return this;
     }
     //------------------------------------------------------------------------------------------------------------------
 
     public GroupHelper submitGroupCreation() {
         click(By.name("submit"));
+        cachedGroups = null;
         return this;
     }
 
@@ -72,6 +84,7 @@ public class GroupHelper extends HelperBase {
 
     public GroupHelper submitGroupModification() {
         click(By.name("update"));
+        cachedGroups = null;
         return this;
     }
 

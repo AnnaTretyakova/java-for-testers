@@ -16,9 +16,18 @@ public class ContactHelper extends HelperBase {
     public static boolean CREATION = true;
     public static boolean MODIFICATION = false;
 
+    private List<ContactData> cachedContacts;
+
     public List<ContactData> getContacts() {
+        if (cachedContacts == null) {
+            rebuildCash();
+        }
+        return cachedContacts;
+    }
+
+    private void rebuildCash() {
         manager.navigateTo().mainPage();
-        List<ContactData> contacts = new ArrayList<ContactData>();
+        cachedContacts = new ArrayList<ContactData>();
         List<WebElement> rows = driver.findElements(By.name ("entry"));
         for (WebElement row : rows){
             ContactData contact = new ContactData()
@@ -26,9 +35,8 @@ public class ContactHelper extends HelperBase {
                     .withLastname(row.findElement(By.xpath("td[2]")).getText())
                     .withEmail(row.findElement(By.xpath("td[4]")).getText())
                     .withHomePhoneNumber(row.findElement(By.xpath("td[5]")).getText());
-            contacts.add(contact);
+            cachedContacts.add(contact);
         }
-        return contacts;
     }
 
     public ContactHelper createContact(ContactData contact) {
@@ -37,6 +45,7 @@ public class ContactHelper extends HelperBase {
         fillContactForm(contact, CREATION);
         submitContactCreation();
         manager.navigateTo().homePage();
+        rebuildCash();
         return this;
     }
 
@@ -46,6 +55,7 @@ public class ContactHelper extends HelperBase {
         fillContactForm(contact, MODIFICATION);
         submitContactModification();
         manager.navigateTo().homePage();
+        rebuildCash();
     }
 
     public ContactHelper deleteContact(int index) {
@@ -53,6 +63,7 @@ public class ContactHelper extends HelperBase {
         selectContactByIndex(index);
         click(By.xpath("//input[@value = 'Delete']"));
         manager.navigateTo().homePage();
+        rebuildCash();
         return this;
     }
 
@@ -100,11 +111,13 @@ public class ContactHelper extends HelperBase {
 
     public ContactHelper submitContactModification() {
         click(By.name("update"));
+        cachedContacts = null;
         return this;
     }
 
     public ContactHelper submitContactCreation() {
         click(By.name("submit"));
+        cachedContacts = null;
         return this;
     }
 }
