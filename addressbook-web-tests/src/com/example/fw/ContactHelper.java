@@ -5,7 +5,6 @@ import com.example.utils.SortedListOf;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ContactHelper extends HelperBase {
@@ -40,6 +39,17 @@ public class ContactHelper extends HelperBase {
         }
     }
 
+    public SortedListOf<String> getContactsInfo(){
+        SortedListOf<String> contactInfoList = new SortedListOf<String>();
+        SortedListOf<ContactData> contactList = this.getContacts();
+        for (ContactData contact: contactList){
+            String contactInfo = contact.getFirstname()+contact.getLastname()+contact.getHomePhoneNumber();
+            contactInfoList.add(contactInfo);
+        }
+        return contactInfoList;
+    }
+
+
     public ContactHelper createContact(ContactData contact) {
         manager.navigateTo().mainPage();
         initContactCreation();
@@ -69,6 +79,11 @@ public class ContactHelper extends HelperBase {
     }
 
     //------------------------------------------------------------------------------------------------------------------
+
+    public String getNumberOfContacts(){
+        manager.navigateTo().mainPage();
+        return driver.findElement(By.id("search_count")).getText();
+    }
 
     public ContactHelper fillContactForm(ContactData contactData, boolean formType) {
         type(By.name("firstname"), contactData.getFirstname());

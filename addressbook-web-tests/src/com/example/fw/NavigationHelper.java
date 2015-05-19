@@ -32,6 +32,16 @@ public class NavigationHelper extends HelperBase{
         }
     }
 
+    public void printPhones() {
+        if(! onPrintPhones()) {
+            click(By.linkText("print phones"));
+        }
+    }
+
+    private boolean onPrintPhones() {
+        return (driver.findElements(By.id("view")).size()>0 && driver.getCurrentUrl().contains("all&print&phones"));
+    }
+
     private boolean onGroupsPage() {
         if(driver.getCurrentUrl().contains("/group.php") && driver.findElements(By.name("new")).size()>0){
             return true;

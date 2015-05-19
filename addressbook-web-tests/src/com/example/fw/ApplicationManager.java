@@ -7,9 +7,6 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.fail;
 
-/**
- * Created by 801646 on 26.04.2015.
- */
 public class ApplicationManager {
 
     public WebDriver driver;
@@ -18,6 +15,7 @@ public class ApplicationManager {
     private NavigationHelper navigationHelper;
     private GroupHelper groupHelper;
     private ContactHelper contactHelper;
+    private PhoneHelper phoneHelper;
 
     public ApplicationManager(){
         driver = new FirefoxDriver();
@@ -49,5 +47,12 @@ public class ApplicationManager {
             contactHelper = new ContactHelper(this);
         }
         return contactHelper;
+    }
+
+    public PhoneHelper getPhoneHelper() {
+        if (phoneHelper == null) {
+            phoneHelper = new PhoneHelper(this);
+        }
+        return phoneHelper;
     }
     }
