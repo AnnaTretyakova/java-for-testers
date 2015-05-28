@@ -1,8 +1,6 @@
 package com.example.tests;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -36,6 +34,8 @@ public class GroupDataGenerator{
 
     //------------------------------------------------------------------------------------------------------------------
 
+    //Generate RandomData
+
     public static List<GroupData> generateRandomGroups(int amount, boolean useNull) {
         List<GroupData> list = new ArrayList<GroupData>();
         for (int i=0; i<amount; i++) {
@@ -60,6 +60,26 @@ public class GroupDataGenerator{
         }
     }
 
+    //LoadDataFromFile
+
+    public static List<GroupData> loadGroupsFromCsvFile(File file) throws IOException {
+        List<GroupData> list = new ArrayList<GroupData>();
+        FileReader reader = new FileReader(file);
+        BufferedReader bufferedReader = new BufferedReader(reader);
+        String line = bufferedReader.readLine();
+        while (line != null){
+            String[] fields = line.split(",");
+            GroupData group = new GroupData()
+                    .withName(fields[0])
+                    .withHeader(fields[1])
+                    .withFooter(fields[2]);
+            list.add(group);
+            line = bufferedReader.readLine();
+        }
+        bufferedReader.close();
+        return list;
+    }
+
     //Save methods
 
     private static void saveGroupsToXmlFile(List<GroupData> groups, File file) throws IOException {
@@ -68,7 +88,7 @@ public class GroupDataGenerator{
     private static void saveGroupsToCsvFile(List<GroupData> groups, File file) throws IOException {
         FileWriter writer = new FileWriter(file);
         for (GroupData group: groups){
-            writer.write(group.getName()+","+group.getHeader()+","+group.getFooter()+"\n");
+            writer.write(group.getName()+","+group.getHeader()+","+group.getFooter()+ ",!"+"\n");
         }
         writer.close();
     }

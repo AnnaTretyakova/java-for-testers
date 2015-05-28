@@ -1,8 +1,6 @@
 package com.example.tests;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -36,6 +34,8 @@ public class ContactDataGenerator {
     }
 
     //------------------------------------------------------------------------------------------------------------------
+
+    //Generate RandomData
 
     public static List<ContactData> generateRandomContacts(int amount, boolean useNull) {
         List<ContactData> list = new ArrayList<ContactData>();
@@ -105,6 +105,36 @@ public class ContactDataGenerator {
         }
     }
 
+    //LoadDataFromFile
+
+    public static List<ContactData> loadContactsFromCsvFile(File file) throws IOException {
+        FileReader reader = new FileReader(file);
+        BufferedReader bufferedReader = new BufferedReader(reader);
+        List<ContactData> contacts = new ArrayList<ContactData>();
+        String line = bufferedReader.readLine();
+        while (line!=null){
+            String[]fields = line.split(",");
+            ContactData contact = new ContactData()
+                    .withFirstname(fields[0])
+                    .withLastname(fields[1])
+                    .withAddress(fields[2])
+                    .withHomePhoneNumber(fields[3])
+                    .withMobilePhoneNumber(fields[4])
+                    .withWorkPhoneNumber(fields[5])
+                    .withEmail(fields[6])
+                    .withEmail2(fields[7])
+                    .withBday(fields[8])
+                    .withBmonth(fields[9])
+                    .withByear(fields[10])
+                    .withAddress2(fields[11])
+                    .withHomePhoneNumber2(fields[12]);
+            contacts.add(contact);
+            line = bufferedReader.readLine();
+        }
+        bufferedReader.close();
+        return contacts;
+    }
+
     //Save methods
 
     private static void saveContactsToXmlFile(List<ContactData> contacts, File file) throws IOException {
@@ -117,8 +147,8 @@ public class ContactDataGenerator {
             writer.write(contact.getHomePhoneNumber()+","+contact.getMobilePhoneNumber()+","+contact.getWorkPhoneNumber()+",");
             writer.write(contact.getEmail()+","+contact.getEmail2()+",");
             writer.write(contact.getBday()+","+contact.getBmonth()+","+contact.getByear()+",");
-            writer.write(contact.getAddress2()+","+contact.getHomePhoneNumber2()+"\n");
-        }
-        writer.close();
+            writer.write(contact.getAddress2()+","+contact.getHomePhoneNumber2()+","+"!"+"\n");
+            }
+         writer.close();
     }
 }
