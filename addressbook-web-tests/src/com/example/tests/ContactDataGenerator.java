@@ -137,6 +137,12 @@ public class ContactDataGenerator {
         return contacts;
     }
 
+    public static List<ContactData> loadContactsFromXmlFile (File file){
+        XStream xstream = new XStream();
+        xstream.alias("contact", ContactData.class);
+        return (List<ContactData>) xstream.fromXML(file);
+    }
+
     //Save methods
 
     private static void saveContactsToXmlFile(List<ContactData> contacts, File file) throws IOException {

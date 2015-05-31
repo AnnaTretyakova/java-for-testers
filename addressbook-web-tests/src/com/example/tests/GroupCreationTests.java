@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.Iterator;
 
 import static com.example.tests.GroupDataGenerator.loadGroupsFromCsvFile;
+import static com.example.tests.GroupDataGenerator.loadGroupsFromXMLFile;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
@@ -16,7 +17,7 @@ public class GroupCreationTests extends TestBase {
 
     @DataProvider
     public Iterator<Object[]> groupsFromFile() throws IOException {
-        return wrapGroupsFromDataProvider(loadGroupsFromCsvFile(new File("groups.txt"))).iterator();
+        return wrapGroupsFromDataProvider(loadGroupsFromXMLFile(new File("groups.xml"))).iterator();
     }
 
     @Test(dataProvider = "groupsFromFile")

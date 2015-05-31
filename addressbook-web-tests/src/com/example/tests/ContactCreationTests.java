@@ -14,12 +14,13 @@ import java.util.List;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static com.example.tests.ContactDataGenerator.loadContactsFromCsvFile;
+import static com.example.tests.ContactDataGenerator.loadContactsFromXmlFile;
 
 public class ContactCreationTests extends TestBase {
 
     @DataProvider
     public Iterator<Object[]> contactsFromFile() throws IOException {
-        return wrapContactsFromDataProvider(loadContactsFromCsvFile(new File("contacts.txt"))).iterator();
+        return wrapContactsFromDataProvider(loadContactsFromXmlFile(new File("contacts.xml"))).iterator();
     }
 
     @Test(dataProvider = "contactsFromFile")

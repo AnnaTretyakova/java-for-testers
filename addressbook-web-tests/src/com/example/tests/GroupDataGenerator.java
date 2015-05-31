@@ -82,6 +82,12 @@ public class GroupDataGenerator{
         return list;
     }
 
+    public static List<GroupData> loadGroupsFromXMLFile(File file){
+        XStream xstream = new XStream();
+        xstream.alias("groups", GroupData.class);
+        return (List<GroupData>) xstream.fromXML(file);
+    }
+
     //Save methods
 
     private static void saveGroupsToXmlFile(List<GroupData> groups, File file) throws IOException {
