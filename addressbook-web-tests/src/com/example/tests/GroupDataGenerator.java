@@ -1,5 +1,7 @@
 package com.example.tests;
 
+import com.thoughtworks.xstream.XStream;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,6 +85,12 @@ public class GroupDataGenerator{
     //Save methods
 
     private static void saveGroupsToXmlFile(List<GroupData> groups, File file) throws IOException {
+        XStream xstream = new XStream();
+        xstream.alias("groups", GroupData.class);
+        String xml = xstream.toXML(groups);
+        FileWriter writer = new FileWriter(file);
+        writer.write(xml);
+        writer.close();
     }
 
     private static void saveGroupsToCsvFile(List<GroupData> groups, File file) throws IOException {

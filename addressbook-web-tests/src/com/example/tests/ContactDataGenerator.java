@@ -1,5 +1,7 @@
 package com.example.tests;
 
+import com.thoughtworks.xstream.XStream;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -138,6 +140,12 @@ public class ContactDataGenerator {
     //Save methods
 
     private static void saveContactsToXmlFile(List<ContactData> contacts, File file) throws IOException {
+        XStream xstream = new XStream();
+        xstream.alias("contact", ContactData.class);
+        String xml = xstream.toXML(contacts);
+        FileWriter writer = new FileWriter(file);
+        writer.write(xml);
+        writer.close();
     }
 
     private static void saveContactsToCsvFile(List<ContactData> contacts, File file) throws IOException {
