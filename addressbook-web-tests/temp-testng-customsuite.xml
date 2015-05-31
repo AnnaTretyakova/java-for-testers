@@ -10,7 +10,7 @@
         </class>
         <class name="com.example.tests.GroupRemovalTests">
             <methods>
-            <include name="deleteSomeGroup"/>
+                <include name="deleteSomeGroup"/>
             </methods>
         </class>
     </classes>
