@@ -3,11 +3,16 @@
 <suite name="Custom suite" parallel="none">
   <test verbose="1" name="addressbook-web-tests" annotations="JDK">
     <classes>
-      <class name="com.example.tests.GroupRemovalTests">
-        <methods>
-          <include name="deleteSomeGroup"/>
-        </methods>
-      </class>
+        <class name="com.example.tests.GroupCreationTests">
+            <methods>
+                <include name="testGroupCreationWithValidData"/>
+            </methods>
+        </class>
+        <class name="com.example.tests.GroupRemovalTests">
+            <methods>
+            <include name="deleteSomeGroup"/>
+            </methods>
+        </class>
     </classes>
   </test>
 </suite>
