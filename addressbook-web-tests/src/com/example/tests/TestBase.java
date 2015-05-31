@@ -4,10 +4,11 @@ import com.example.fw.ApplicationManager;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+
+import java.io.File;
+import java.io.FileReader;
+import java.util.*;
+
 import static com.example.tests.GroupDataGenerator.generateRandomGroups;
 import static com.example.tests.ContactDataGenerator.generateRandomContacts;
 
@@ -17,7 +18,9 @@ public class TestBase {
 
     @BeforeTest
     public void setUp() throws Exception {
-        app = new ApplicationManager();
+        Properties properties = new Properties();
+        properties.load(new FileReader(new File("application.properties")));
+        app = new ApplicationManager(properties);
         }
 
     @AfterTest
