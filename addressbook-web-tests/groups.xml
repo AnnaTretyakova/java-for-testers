@@ -1,52 +1,25 @@
 <list>
   <groups>
     <name>test-1877266733</name>
-    <header></header>
-    <footer>test2133370439</footer>
+    <header>
+      test2133370439
+      test2133370439
+      test2133370439
+    </header>
+    <footer>
+      test2133370439
+      test2133370439
+      test2133370439
+    </footer>
   </groups>
   <groups>
-    <name>test931651181</name>
-    <header>test-229335327</header>
-    <footer>test668444860</footer>
+    <name></name>
+    <header></header>
+    <footer></footer>
   </groups>
   <groups>
     <name>test995138753</name>
     <header>test715925893</header>
     <footer>test1543259637</footer>
-  </groups>
-  <groups>
-    <name></name>
-    <header></header>
-    <footer>test657326611</footer>
-  </groups>
-  <groups>
-    <name></name>
-    <header>test599723852</header>
-    <footer>test-647334611</footer>
-  </groups>
-  <groups>
-    <name>test-666705650</name>
-    <header>test-1134266514</header>
-    <footer>test-2111017322</footer>
-  </groups>
-  <groups>
-    <name>test-2142932577</name>
-    <header>test1867816493</header>
-    <footer>test1249556387</footer>
-  </groups>
-  <groups>
-    <name>test1457997870</name>
-    <header></header>
-    <footer>test1284907178</footer>
-  </groups>
-  <groups>
-    <name>test158634549</name>
-    <header>test-1054623921</header>
-    <footer>test1364146960</footer>
-  </groups>
-  <groups>
-    <name>test884901794</name>
-    <header></header>
-    <footer>test193072105</footer>
   </groups>
 </list>
