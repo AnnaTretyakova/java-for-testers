@@ -16,6 +16,7 @@ public class ProcessHelper extends HelperBase {
     }
 
     public void stopApplicationUnderTest() {
-        process.destroy();
+        manager.getAutoItHelper().click("Exit");
+        //process.destroy();
     }
 }
