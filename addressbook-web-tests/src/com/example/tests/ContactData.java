@@ -1,6 +1,7 @@
 package com.example.tests;
 
 public class ContactData implements  Comparable<ContactData> {
+    private String id;
     private String firstname;
     private String lastname;
     private String address;
@@ -21,6 +22,7 @@ public class ContactData implements  Comparable<ContactData> {
     @Override
     public String toString() {
         return "ContactData{" +
+                "id='" + id + '\'' +
                 "firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", email='" + email + '\'' +
@@ -69,6 +71,11 @@ public class ContactData implements  Comparable<ContactData> {
             }
         }
         return i;
+    }
+
+    public ContactData withId (String id) {
+        this.id = id;
+        return this;
     }
 
     public ContactData withFirstname(String firstname) {
@@ -135,6 +142,64 @@ public class ContactData implements  Comparable<ContactData> {
         this.homePhoneNumber2 = homePhoneNumber2;
         return this;
     }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setHomePhoneNumber(String homePhoneNumber) {
+        this.homePhoneNumber = homePhoneNumber;
+    }
+
+    public void setMobilePhoneNumber(String mobilePhoneNumber) {
+        this.mobilePhoneNumber = mobilePhoneNumber;
+    }
+
+    public void setWorkPhoneNumber(String workPhoneNumber) {
+        this.workPhoneNumber = workPhoneNumber;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setEmail2(String email2) {
+        this.email2 = email2;
+    }
+
+    public void setBday(String bday) {
+        this.bday = bday;
+    }
+
+    public void setBmonth(String bmonth) {
+        this.bmonth = bmonth;
+    }
+
+    public void setByear(String byear) {
+        this.byear = byear;
+    }
+
+    public void setAddress2(String address2) {
+        this.address2 = address2;
+    }
+
+    public void setHomePhoneNumber2(String homePhoneNumber2) {
+        this.homePhoneNumber2 = homePhoneNumber2;
+    }
+
+    public String getId() {  return id;    }
 
     public String getFirstname() {
         return firstname;

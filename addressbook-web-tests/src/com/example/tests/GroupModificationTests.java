@@ -13,7 +13,8 @@ public class GroupModificationTests extends TestBase {
     @Test(dataProvider = "randomValidGroupGenerator")
     public void modifySomeGroup(GroupData group){
         //save old state
-        SortedListOf<GroupData> oldList = app.getGroupHelper().getGroups();
+        //SortedListOf<GroupData> oldList = app.getGroupHelper().getGroups();
+        SortedListOf<GroupData> oldList = new SortedListOf<GroupData>(app.getHibernateHelper().listGroups());
 
         //actions
         Random rnd = new Random();

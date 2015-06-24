@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class PhoneHelper extends HelperBase {
+public class PhoneHelper extends WebDriverHelperBase {
 
     public PhoneHelper(ApplicationManager manager) {
         super(manager);
@@ -15,7 +15,7 @@ public class PhoneHelper extends HelperBase {
     public SortedListOf<String> getContactsInfo() {
         manager.navigateTo().printPhones();
         SortedListOf<String> contactInfoList = new SortedListOf<String>();
-        List<WebElement> cells = manager.driver.findElements(By.xpath("//td[@valign = \"top\"]"));
+        List<WebElement> cells = manager.getDriver().findElements(By.xpath("//td[@valign = \"top\"]"));
         for (WebElement cell: cells){
             String contactInfo;
             String namesInCell = cell.findElement(By.xpath("b")).getText();

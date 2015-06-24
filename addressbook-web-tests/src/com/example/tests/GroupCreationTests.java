@@ -23,13 +23,15 @@ public class GroupCreationTests extends TestBase {
     @Test(dataProvider = "groupsFromFile")
     public void testGroupCreationWithValidData(GroupData group) throws Exception {
         //save old state
-        SortedListOf<GroupData> oldList = app.getGroupHelper().getGroups();
+        //SortedListOf<GroupData> oldList = app.getGroupHelper().getGroups();
+        SortedListOf<GroupData> oldList = new SortedListOf<GroupData>(app.getHibernateHelper().listGroups());
 
         //actions
         app.getGroupHelper().createGroup(group);
 
         //save new state
         SortedListOf<GroupData> newList = app.getGroupHelper().getGroups();
+        //SortedListOf<GroupData> newList = new SortedListOf<GroupData>(app.getHibernateHelper().listGroups());
 
         //compare states
         //sinse type method in fillGroupForm does't change field if value is null they will be got in getGroups() as ""

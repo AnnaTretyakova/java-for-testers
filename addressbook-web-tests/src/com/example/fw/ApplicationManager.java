@@ -12,7 +12,7 @@ import static org.junit.Assert.fail;
 
 public class ApplicationManager {
 
-    public WebDriver driver;
+    private WebDriver driver;
     public String baseUrl;
 
     private NavigationHelper navigationHelper;
@@ -20,23 +20,10 @@ public class ApplicationManager {
     private ContactHelper contactHelper;
     private PhoneHelper phoneHelper;
     private Properties properties;
+    private HibernateHelper hibernateHelper;
 
     public ApplicationManager(Properties properties){
         this.properties = properties;
-        String browser = properties.getProperty("browser");
-        if("firefox".equals(browser)){
-            driver = new FirefoxDriver();
-        }else if("chrome".equals(browser)){
-            driver = new ChromeDriver();
-        }else if("ie".equals(browser)){
-            driver = new InternetExplorerDriver();
-        }
-        else{
-            throw new Error("Unsupported browser:" + browser);
-        }
-        baseUrl = properties.getProperty("baseUrl");
-        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-        driver.get(baseUrl);
     }
 
     public void stop() {
@@ -70,4 +57,31 @@ public class ApplicationManager {
         }
         return phoneHelper;
     }
+
+    public WebDriver getDriver() {
+        String browser = properties.getProperty("browser");
+        if (driver == null) {
+            if("firefox".equals(browser)){
+                driver = new FirefoxDriver();
+            }else if("chrome".equals(browser)){
+                driver = new ChromeDriver();
+            }else if("ie".equals(browser)){
+                driver = new InternetExplorerDriver();
+            }
+            else{
+                throw new Error("Unsupported browser:" + browser);
+            }
+            baseUrl = properties.getProperty("baseUrl");
+            driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+            driver.get(baseUrl);
+        }
+        return driver;
     }
+
+    public HibernateHelper getHibernateHelper() {
+        if (hibernateHelper == null) {
+            hibernateHelper = new HibernateHelper(this);
+        }
+        return hibernateHelper;
+    }
+}
