@@ -40,5 +40,6 @@ public class ContactCreationTests extends TestBase {
         if (contact.getFirstname() == null){contact.withFirstname("");}
         if (contact.getLastname()== null){contact.withLastname("");}
         assertThat(newList, equalTo(oldList.withAdded(contact)));
+        assertThat(newList, equalTo(new SortedListOf<ContactData>(app.getHibernateHelper().listContacts())));
     }
 }

@@ -20,7 +20,8 @@ public class ContactModificationTests extends TestBase {
         //action
         Random rnd = new Random();
         int index = rnd.nextInt(oldList.size()-1);
-        app.getContactHelper().modifyContact(index, contact);
+        ContactData contactFromModificationForm = app.getContactHelper().modifyContact(index, contact);
+        assertThat(contactFromModificationForm, equalTo(oldList.get(index)));
 
         //save new ContactsList
         SortedListOf<ContactData> newList = app.getContactHelper().getContacts();

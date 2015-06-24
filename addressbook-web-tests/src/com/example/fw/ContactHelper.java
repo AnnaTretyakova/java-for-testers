@@ -60,13 +60,16 @@ public class ContactHelper extends WebDriverHelperBase {
         return this;
     }
 
-    public void modifyContact(int index, ContactData contact) {
+    public ContactData modifyContact(int index, ContactData contact) {
         manager.navigateTo().mainPage();
         initContactModification(index);
+        ContactData oldContact = new ContactData();
+        getInformationFromContactForm(oldContact,index, MODIFICATION);
         fillContactForm(contact, MODIFICATION);
         submitContactModification();
         manager.navigateTo().homePage();
         rebuildCash();
+        return oldContact;
     }
 
     public ContactHelper deleteContact(int index) {
@@ -108,6 +111,23 @@ public class ContactHelper extends WebDriverHelperBase {
         type(By.name("address2"), contactData.getAddress2());
         type(By.name("phone2"), contactData.getHomePhoneNumber2());
         return this;
+    }
+
+    public ContactData getInformationFromContactForm(ContactData contact, int index, boolean formType) {
+        contact.setFirstname(driver.findElement(By.name("firstname")).getAttribute("value"));
+        contact.setLastname(driver.findElement(By.name("lastname")).getAttribute("value"));
+        contact.setAddress(driver.findElement(By.name("address")).getText());
+        contact.setHomePhoneNumber(driver.findElement(By.name("home")).getAttribute("value"));
+        contact.setMobilePhoneNumber(driver.findElement(By.name("mobile")).getAttribute("value"));
+        contact.setWorkPhoneNumber(driver.findElement(By.name("work")).getAttribute("value"));
+        contact.setEmail(driver.findElement(By.name("email")).getAttribute("value"));
+        contact.setEmail2(driver.findElement(By.name("email2")).getAttribute("value"));
+        contact.setBday(driver.findElement(By.xpath("//select[1]/option[1]")).getAttribute("value"));
+        contact.setBmonth(driver.findElement(By.xpath("//select[2]/option[1]")).getAttribute("value"));
+        contact.setByear(driver.findElement(By.name("byear")).getAttribute("value"));
+        contact.setAddress(driver.findElement(By.name("address2")).getText());
+        contact.setHomePhoneNumber2(driver.findElement(By.name("phone2")).getAttribute("value"));
+        return contact;
     }
 
     public ContactHelper initContactCreation() {
